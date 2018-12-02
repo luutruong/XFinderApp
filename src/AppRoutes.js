@@ -52,10 +52,8 @@ Object.keys(mainRoutes).forEach((mainRouteKey) => {
         {
             navigationOptions: {
                 headerStyle: {
-                    // backgroundColor: PRIMARY_DARK_COLOR,
                     borderBottomWidth: 0
-                },
-                // headerTintColor: PRIMARY_TEXT_COLOR
+                }
             }
         }
     );
@@ -85,9 +83,7 @@ const bottomStackNavigator = createBottomTabNavigator({
     ...dynamicRoutesMap
 }, {
     initialRouteName: 'Finder',
-    // headerTintColor: '',
     tabBarOptions: {
-        // activeTintColor: '',
         showIcon: true,
         showLabel: true
     }
