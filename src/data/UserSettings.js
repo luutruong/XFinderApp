@@ -1,6 +1,6 @@
-import Container from "../Container";
-import {AsyncStorage} from 'react-native'
-import AppEvent, {AppEventNames} from "../AppEvent";
+import Container from '../Container';
+import { AsyncStorage } from 'react-native';
+import AppEvent, { AppEventNames } from '../AppEvent';
 
 const USER_SETTINGS_KEY = 'UserSettings';
 export default class UserSettings {
@@ -12,9 +12,12 @@ export default class UserSettings {
 
         return new Promise((resolve, reject) => {
             AsyncStorage.getItem(USER_SETTINGS_KEY)
-                .then(jsonText => JSON.parse(jsonText))
+                .then((jsonText) => JSON.parse(jsonText))
                 .then((json) => {
-                    Container.setItem(USER_SETTINGS_KEY, Object.assign(defaultValues, json));
+                    Container.setItem(
+                        USER_SETTINGS_KEY,
+                        Object.assign(defaultValues, json)
+                    );
 
                     resolve();
                 })
@@ -22,7 +25,7 @@ export default class UserSettings {
                     Container.setItem(USER_SETTINGS_KEY, defaultValues);
 
                     reject();
-                })
+                });
         });
     }
 

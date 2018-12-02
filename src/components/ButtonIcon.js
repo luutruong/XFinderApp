@@ -1,7 +1,7 @@
-import React from 'react'
-import {Platform} from 'react-native'
+import React from 'react';
+import { Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import Button from "./Button";
+import Button from './Button';
 
 type Props = {
     name: String,
@@ -10,7 +10,7 @@ type Props = {
 };
 export default class ButtonIcon extends React.PureComponent<Props> {
     render() {
-        const {name, size, color, title} = this.props;
+        const { name, size, color, title } = this.props;
         const iconStyle = [];
         if (title) {
             iconStyle.push({

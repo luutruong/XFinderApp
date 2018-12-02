@@ -14,7 +14,7 @@ export default class EditFileScreen extends BaseScreen<Props> {
     _doReadFileContent = () => {
         const item = this.props.navigation.getParam('item');
 
-        RNFS.readFile(item.path)
+        FileHelper.getContents(item.path)
             .then((contents) => this._setLoadingState(LoadingStates.Done, { contents }))
             .catch(() => this._setLoadingState(LoadingStates.Failed));
     };
@@ -30,7 +30,6 @@ export default class EditFileScreen extends BaseScreen<Props> {
     _enableAutoSave = () => {
         const autoSaveInterval = UserSettings.get('autoSaveInterval');
         if (autoSaveInterval > 0) {
-            const item = this.props.navigation.getParam('item');
             this._autoSave = setInterval(() => {
                 this._onToolbarEvent(EditFileToolbarType.Save);
             }, autoSaveInterval * 1000);

@@ -1,16 +1,17 @@
-import React from 'react'
-import {View, Text} from 'react-native'
-import Button from "./Button";
+import React from 'react';
+import { View, Text } from 'react-native';
+import Button from './Button';
 
 type Props = {
     onRetry: Function,
     text?: String,
     textSize?: Number,
-    textColor?: String
+    textColor?: String,
+    style: Array | Object
 };
 export default class ErrorView extends React.PureComponent<Props> {
     render(): React.ReactNode {
-        const {text, style, textSize, textColor, onRetry} = this.props;
+        const { text, style, textSize, textColor, onRetry } = this.props;
         const defaultStyle = {
             justifyContent: 'center',
             alignItems: 'center',
@@ -25,7 +26,11 @@ export default class ErrorView extends React.PureComponent<Props> {
         return (
             <View style={[defaultStyle, style]}>
                 <Text style={textStyles}>{text}</Text>
-                <Button title={'Try again'} onPress={onRetry} disabled={false}/>
+                <Button
+                    title={'Try again'}
+                    onPress={onRetry}
+                    disabled={false}
+                />
             </View>
         );
     }

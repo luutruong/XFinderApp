@@ -1,12 +1,12 @@
-import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 type Props = {
     message: String
 };
 export default class MessageView extends React.PureComponent<Props> {
     render(): React.ReactNode {
-        const {message} = this.props;
+        const { message } = this.props;
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>{message}</Text>

@@ -1,7 +1,7 @@
-import React from 'react'
-import {SafeAreaView, StyleSheet} from 'react-native'
-import LoadingView from "../components/LoadingView";
-import ErrorView from "../components/ErrorView";
+import React from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import LoadingView from '../components/LoadingView';
+import ErrorView from '../components/ErrorView';
 
 export const LoadingStates = Object.freeze({
     Begin: 'begin',
@@ -37,15 +37,15 @@ export default class BaseScreen extends React.PureComponent {
     }
 
     render(): React.ReactNode {
-        const {loadingState} = this.state;
+        const { loadingState } = this.state;
         let childrenComponent;
-        
+
         if (loadingState === LoadingStates.Begin) {
             childrenComponent = <LoadingView text={this._getLoadingText()} />;
         } else if (loadingState === LoadingStates.Done) {
             childrenComponent = this._doRender();
         } else if (loadingState === LoadingStates.Failed) {
-            childrenComponent = <ErrorView onRetry={() => this._doReload()}/>
+            childrenComponent = <ErrorView onRetry={() => this._doReload()} />;
         } else {
             throw new Error(`Unknown load state value: ${loadingState}`);
         }

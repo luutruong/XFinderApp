@@ -1,25 +1,43 @@
-import React from 'react'
-import {View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Platform, Text} from 'react-native'
+import React from 'react';
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    Platform,
+    Text
+} from 'react-native';
 
 type Props = {
     title: String,
     onPress: Function,
     disabled: boolean,
     textColor?: String,
-    textStyle?: Array | Object
+    textStyle?: Array | Object,
+    children?: React.ReactNode,
+    style?: Array | Object
 };
 export default class Button extends React.PureComponent<Props> {
     render() {
-        const Touchable = Platform.OS === 'ios' ? TouchableOpacity : TouchableWithoutFeedback;
-        const {onPress, disabled, title, children, textColor, style, textStyle} = this.props;
+        const Touchable =
+            Platform.OS === 'ios' ? TouchableOpacity : TouchableWithoutFeedback;
+        const {
+            onPress,
+            disabled,
+            title,
+            children,
+            textColor,
+            style,
+            textStyle
+        } = this.props;
 
         const buttonStyles = [styles.button, style];
         const textStyles = [styles.text, textStyle];
         if (textColor) {
             if (Platform.OS === 'ios') {
-                textStyles.push({color: textColor});
+                textStyles.push({ color: textColor });
             } else {
-                buttonStyles.push({backgroundColor: textColor});
+                buttonStyles.push({ backgroundColor: textColor });
             }
         }
         const accessibilityStates = [];
@@ -30,8 +48,11 @@ export default class Button extends React.PureComponent<Props> {
         }
         const formattedTitle =
             Platform.OS === 'android' ? title.toUpperCase() : title;
-        const titleComponent =
-            formattedTitle ? <Text style={textStyles} disabled={disabled}>{formattedTitle}</Text> : null;
+        const titleComponent = formattedTitle ? (
+            <Text style={textStyles} disabled={disabled}>
+                {formattedTitle}
+            </Text>
+        ) : null;
 
         return (
             <Touchable
@@ -39,8 +60,7 @@ export default class Button extends React.PureComponent<Props> {
                 disabled={disabled}
                 accessibilityLabel={title}
                 accessibilityStates={accessibilityStates}
-                accessibilityRole="button"
-            >
+                accessibilityRole="button">
                 <View style={buttonStyles}>
                     {children}
                     {titleComponent}
@@ -57,8 +77,8 @@ const styles = StyleSheet.create({
             elevation: 4,
             // Material design blue from https://material.google.com/style/color.html#color-color-palette
             backgroundColor: '#2196F3',
-            borderRadius: 2,
-        },
+            borderRadius: 2
+        }
     }),
     text: Platform.select({
         ios: {
@@ -66,28 +86,28 @@ const styles = StyleSheet.create({
             color: '#007AFF',
             textAlign: 'center',
             padding: 8,
-            fontSize: 18,
+            fontSize: 18
         },
         android: {
             color: 'white',
             textAlign: 'center',
             padding: 8,
-            fontWeight: '500',
-        },
+            fontWeight: '500'
+        }
     }),
     buttonDisabled: Platform.select({
         ios: {},
         android: {
             elevation: 0,
-            backgroundColor: '#dfdfdf',
-        },
+            backgroundColor: '#dfdfdf'
+        }
     }),
     textDisabled: Platform.select({
         ios: {
-            color: '#cdcdcd',
+            color: '#cdcdcd'
         },
         android: {
-            color: '#a1a1a1',
-        },
-    }),
+            color: '#a1a1a1'
+        }
+    })
 });

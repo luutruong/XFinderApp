@@ -1,14 +1,15 @@
-import React from 'react'
-import {View, ActivityIndicator, Text} from 'react-native'
+import React from 'react';
+import { View, ActivityIndicator, Text } from 'react-native';
 
 type Props = {
     text?: String,
     textSize?: Number,
-    textColor?: String
+    textColor?: String,
+    style?: Array | Object
 };
 export default class LoadingView extends React.PureComponent<Props> {
     render(): React.ReactNode {
-        const {text, style, textSize, textColor} = this.props;
+        const { text, style, textSize, textColor } = this.props;
         const defaultStyle = {
             justifyContent: 'center',
             alignItems: 'center',
@@ -22,7 +23,7 @@ export default class LoadingView extends React.PureComponent<Props> {
 
         return (
             <View style={[defaultStyle, style]}>
-                <ActivityIndicator size={'large'}/>
+                <ActivityIndicator size={'large'} />
                 <Text style={textStyles}>{text}</Text>
             </View>
         );

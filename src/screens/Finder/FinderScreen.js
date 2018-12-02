@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, FlatList, Dimensions, AlertIOS, ActionSheetIOS, Alert} from 'react-native'
+import {View, StyleSheet, AlertIOS, ActionSheetIOS, Alert} from 'react-native'
 import ListGridSwitcher from "./ListGridSwitcher";
 import AppEvent, {AppEventNames} from "../../AppEvent";
 import BaseScreen, {LoadingStates} from "../BaseScreen";
@@ -9,14 +9,11 @@ import UserSettings from "../../data/UserSettings";
 import ItemList from "../../components/ItemList";
 import FileHelper from "../../utils/FileHelper";
 
-const {width} = Dimensions.get('window');
-
 type Props = {
     navigation: Object
 };
 export default class FinderScreen extends BaseScreen<Props> {
     _listGridDidChanged = (layoutType) => {
-        const items = [];
         this._setLoadingState(LoadingStates.Begin, { layoutType });
         setTimeout(this._doLoadData, 500);
     };
@@ -64,16 +61,16 @@ export default class FinderScreen extends BaseScreen<Props> {
                     text => {
                         if (text.length) {
                             if (buttonIndex === 1) {
-                                RNFS.mkdir(`${workingOnDir}/${text}`)
+                                FileHelper.makeDirectory(text, workingOnDir)
                                     .then(() => this._doLoadData())
                                     .catch(() => {
                                         Alert.alert('Cannot create directory');
                                     })
                             } else {
-                                RNFS.writeFile(`${workingOnDir}/${text}`, '')
+                                FileHelper.createFile(text, workingOnDir)
                                     .then(() => this._doLoadData())
-                                    .catch(() => {
-                                        Alert.alert('Cannot create file');
+                                    .catch((err) => {
+                                        Alert.alert(err.toString());
                                     });
                             }
                         }

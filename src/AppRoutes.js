@@ -7,6 +7,7 @@ import SettingScreen from "./screens/Setting/SettingScreen";
 import ViewFileScreen from "./screens/File/ViewFileScreen";
 import RecentFilesScreen from "./screens/File/RecentFilesScreen";
 
+/* eslint-disable */
 const mainRoutes = {
     Finder: {
         screens: {
@@ -38,6 +39,7 @@ const mainRoutes = {
         }
     }
 };
+/* eslint-enable */
 
 const modalRoutes = {};
 

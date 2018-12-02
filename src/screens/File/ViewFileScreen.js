@@ -2,7 +2,6 @@ import React from 'react'
 import {Text, StyleSheet, ScrollView} from 'react-native'
 import BaseScreen, {LoadingStates} from "../BaseScreen";
 import EditFileToolbar, {EditFileToolbarType, EventEditFileToolbarPressed} from "./EditFileToolbar";
-import RNFS from 'react-native-fs'
 import AppEvent from "../../AppEvent";
 import {NavigationActions} from "react-navigation";
 import FileHelper from "../../utils/FileHelper";
@@ -15,7 +14,7 @@ export default class ViewFileScreen extends BaseScreen<Props> {
         const {navigation} = this.props;
         const item = navigation.getParam('item');
 
-        RNFS.readFile(item.path)
+        FileHelper.getContents(item.path)
             .then((contents) => this._setLoadingState(LoadingStates.Done, { contents }))
             .catch(() => this._setLoadingState(LoadingStates.Failed));
     };
