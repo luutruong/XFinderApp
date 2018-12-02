@@ -59,11 +59,21 @@ export default class RecentFilesScreen extends BaseScreen {
         this.state = {
             ...this.state,
             items: []
-        }
+        };
+
+        this._didFocus = null;
     }
 
     componentDidMount(): void {
         this._doLoadData();
+
+        const {navigation} = this.props;
+
+        this._didFocus = navigation.addListener('didFocus', this._doLoadData);
+    }
+
+    componentWillUnmount(): void {
+        this._didFocus.remove();
     }
 }
 

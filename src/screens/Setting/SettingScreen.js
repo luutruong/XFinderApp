@@ -1,7 +1,10 @@
 import React from 'react'
-import {View, SectionList, StyleSheet,ActionSheetIOS} from 'react-native'
+import {View, SectionList, StyleSheet,ActionSheetIOS, Text} from 'react-native'
 import UserSettings from "../../data/UserSettings";
 import SettingRow from "./SettingRow";
+import RNFS from 'react-native-fs'
+import DeviceInfo from 'react-native-device-info';
+import FileHelper from "../../utils/FileHelper";
 
 const sections = [
     {
@@ -71,7 +74,36 @@ const sections = [
                 title: 'Tell a friend'
             },
             {
-                title: 'Version'
+                title: 'Free space',
+                valuePromise: () => {
+                    return new Promise((resolve, reject) => {
+                        RNFS.getFSInfo()
+                            .then((infoResult) => {
+                                resolve(FileHelper.sizeToGB(infoResult.freeSpace));
+                            })
+                            .catch(reject);
+                    });
+                }
+            },
+            {
+                title: 'Total space',
+                valuePromise: () => {
+                    return new Promise((resolve, reject) => {
+                        RNFS.getFSInfo()
+                            .then((infoResult) => {
+                                resolve(FileHelper.sizeToGB(infoResult.totalSpace));
+                            })
+                            .catch(reject);
+                    });
+                }
+            },
+            {
+                title: 'Version',
+                valuePromise: () => {
+                    return new Promise((resolve) => {
+                       resolve(DeviceInfo.getReadableVersion());
+                    });
+                }
             }
         ]
     }
@@ -81,8 +113,14 @@ type Props = {
     navigation: Object
 };
 export default class SettingScreen extends React.Component<Props> {
-    _doRenderItem = ({item}) => {
-        return <SettingRow item={item}/>
+    _doRenderItem = ({item}) => <SettingRow item={item}/>;
+
+    _doRenderSectionHeader = (sectionData, sectionId) => {
+        return (
+            <View style={styles.sectionHeader}>
+                <Text style={styles.sectionText}>{sectionData.section.title.toUpperCase()}</Text>
+            </View>
+        );
     };
 
     render() {
@@ -95,7 +133,9 @@ export default class SettingScreen extends React.Component<Props> {
                     sections={sections}
                     renderItem={this._doRenderItem}
                     keyExtractor={(item, index) => item + index}
+                    renderSectionHeader={this._doRenderSectionHeader}
                     ItemSeparatorComponent={ItemSeparator}
+                    scrollEnabled={false}
                     {...sectionListProps}
                 />
             </View>
@@ -117,6 +157,16 @@ const styles = StyleSheet.create({
     separator: {
         width: '100%',
         height:1,
-        backgroundColor: '#ddd'
+        backgroundColor: '#ddd',
+        marginLeft: 10
+    },
+
+    sectionHeader: {
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        marginTop: 20
+    },
+    sectionText: {
+        color: 'grey'
     }
 });

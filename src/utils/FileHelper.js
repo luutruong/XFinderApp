@@ -33,15 +33,16 @@ export default class FileHelper {
             AsyncStorage.getItem('recentFiles')
                 .then((jsonText) => JSON.parse(jsonText))
                 .then((json) => {
-                    Container.setItem('recentFiles', json);
+                    const items = Array.isArray(json) ? json : [];
+                    Container.setItem('recentFiles', items);
 
-                    resolve(json);
+                    resolve(items);
                 })
                 .catch(reject);
         });
     }
 
-    static sizeToKB(size: Number) {
+    static sizeToKB(size: Number): String {
         if (size < 1) {
             return '0 KB';
         }
@@ -50,7 +51,16 @@ export default class FileHelper {
         return `${sizeInKB.toFixed(2)} KB`;
     }
 
-    static isEditable(path: String) {
+    static sizeToGB(size: Number): String {
+        if (size < 1) {
+            return '0 GB';
+        }
+
+        const sizeInMB = size / (1024 * 1024 * 1024);
+        return `${sizeInMB.toFixed(2)} GB`;
+    }
+
+    static isEditable(path: String): boolean {
         const parts = path.split('.');
         const extension = parts[parts.length - 1];
 
@@ -67,7 +77,7 @@ export default class FileHelper {
         return false;
     }
 
-    static unlink(path: String) {
+    static unlink(path: String): void {
         RNFS.unlink(path)
             .then(() => {
                 updateRecentFiles(path, true);

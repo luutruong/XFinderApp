@@ -22,6 +22,15 @@ export default class SettingRow extends React.PureComponent<Props> {
 
     componentDidMount(): void {
         AppEvent.addListener(AppEventNames.UserSettingsChanged, this._onDataChanged);
+        const {item} = this.props;
+
+        if (item.valuePromise) {
+            item.valuePromise()
+                .then((value) => {
+                    this.setState({ value });
+                })
+                .catch(() => this.setState({ value: 'Unknown' }));
+        }
     }
 
     componentWillUnmount(): void {
@@ -69,7 +78,7 @@ const styles = StyleSheet.create({
     },
 
     mainTextView: {
-        width: width - 80
+        width: width - 100
     },
 
     mainText: {
@@ -78,7 +87,7 @@ const styles = StyleSheet.create({
     secondText: {
         fontSize: 16,
         color: 'grey',
-        width: 60,
+        width: 80,
         textAlign: 'right'
     },
     textHint: {

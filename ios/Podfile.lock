@@ -12,6 +12,8 @@ PODS:
     - React/Core
   - React/RCTText (0.57.7):
     - React/Core
+  - RNDeviceInfo (0.21.5):
+    - React
   - RNFS (2.12.1):
     - React
   - RNVectorIcons (6.1.0):
@@ -24,6 +26,7 @@ DEPENDENCIES:
   - React/RCTImage (from `../node_modules/react-native`)
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFS (from `../node_modules/react-native-fs`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -31,6 +34,8 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   React:
     :path: "../node_modules/react-native"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNFS:
     :path: "../node_modules/react-native-fs"
   RNVectorIcons:
@@ -40,10 +45,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  RNDeviceInfo: 568c5641057313b4912d08a7742ff0b2f753ed5c
   RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
   RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: f8dc41edb72ab21ef91421e95a197cc5c21ee739
+PODFILE CHECKSUM: 4a279b82ed60e8325783d81e56ee07e973a8393e
 
 COCOAPODS: 1.5.3
