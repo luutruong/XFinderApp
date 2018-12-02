@@ -13,12 +13,15 @@ const updateRecentFiles = (path: string, isDelete: boolean) => {
             return p !== path;
         });
     } else {
-        const existingIndex = recentFiles.indexOf(path);
-        if (existingIndex !== -1) {
-            recentFiles = recentFiles.splice(existingIndex, 1);
-        }
-
+        recentFiles = recentFiles.filter(p => p !== path);
         recentFiles.push(path);
+    }
+
+    const totalLength = recentFiles.length;
+    const maxRecentFiles = 30;
+
+    if (totalLength > maxRecentFiles) {
+        recentFiles = recentFiles.splice(totalLength - maxRecentFiles);
     }
 
     Container.setItem('recentFiles', recentFiles);
