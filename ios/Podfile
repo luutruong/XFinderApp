@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'Finder' do
+target 'XFinder' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for Finder
+  # Pods for XFinder
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
      'Core',
      'RCTText',
@@ -21,20 +21,20 @@ target 'Finder' do
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
-  target 'FinderTests' do
+  target 'XFinderTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
 end
 
-target 'Finder-tvOS' do
+target 'XFinder-tvOS' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for Finder-tvOS
+  # Pods for XFinder-tvOS
 
-  target 'Finder-tvOSTests' do
+  target 'XFinder-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

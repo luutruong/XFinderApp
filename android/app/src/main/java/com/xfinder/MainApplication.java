@@ -1,4 +1,4 @@
-package com.finder;
+package com.xfinder;
 
 import android.app.Application;
 
