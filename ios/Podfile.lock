@@ -1,0 +1,49 @@
+PODS:
+  - React (0.57.7):
+    - React/Core (= 0.57.7)
+  - React/Core (0.57.7):
+    - yoga (= 0.57.7.React)
+  - React/RCTAnimation (0.57.7):
+    - React/Core
+  - React/RCTImage (0.57.7):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTNetwork (0.57.7):
+    - React/Core
+  - React/RCTText (0.57.7):
+    - React/Core
+  - RNFS (2.12.1):
+    - React
+  - RNVectorIcons (6.1.0):
+    - React
+  - yoga (0.57.7.React)
+
+DEPENDENCIES:
+  - React/Core (from `../node_modules/react-native`)
+  - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - RNFS (from `../node_modules/react-native-fs`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+EXTERNAL SOURCES:
+  React:
+    :path: "../node_modules/react-native"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
+  yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga"
+
+SPEC CHECKSUMS:
+  React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  RNFS: bbb1a64eb245763daf34aea86f97c97c4e85f74c
+  RNVectorIcons: 8c52e1e8da1153613fdef44748e865c25556cb9c
+  yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
+
+PODFILE CHECKSUM: f8dc41edb72ab21ef91421e95a197cc5c21ee739
+
+COCOAPODS: 1.5.3
