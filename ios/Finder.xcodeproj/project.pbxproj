@@ -1557,7 +1557,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.truongluu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Finder;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
