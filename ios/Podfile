@@ -57,8 +57,7 @@ post_install do |installer|
       end
 
       if target.name == "React"
-            target.remove_from_project
-          end
-
+        target.remove_from_project
+      end
     end
 end
