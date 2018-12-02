@@ -1,10 +1,19 @@
 import React from 'react'
-import {View, SectionList, StyleSheet,ActionSheetIOS, Text} from 'react-native'
+import {View, SectionList, StyleSheet,ActionSheetIOS, Text, Platform, Linking} from 'react-native'
 import UserSettings from "../../data/UserSettings";
 import SettingRow from "./SettingRow";
 import RNFS from 'react-native-fs'
 import DeviceInfo from 'react-native-device-info';
 import FileHelper from "../../utils/FileHelper";
+
+const appStore = Platform.select({
+    ios: {
+        url: 'https://itunes.apple.com/app/id1445350543?mt=8'
+    },
+    android: {
+        url: false
+    }
+});
 
 const sections = [
     {
@@ -69,11 +78,11 @@ const sections = [
         data: [
             {
                 title: 'Review app',
-                onPress: () => {}
-            },
-            {
-                title: 'Tell a friend',
-                onPress: () => {}
+                onPress: () => {
+                    if (appStore.url) {
+                        Linking.openURL(appStore.url);
+                    }
+                }
             },
             {
                 title: 'Free space',
