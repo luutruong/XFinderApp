@@ -4,7 +4,7 @@ import MessageView from './MessageView';
 import ListGridItem from './ListGridItem';
 import ListRowItem from './ListRowItem';
 import { NavigationActions } from 'react-navigation';
-import FileHelper from '../utils/FileHelper';
+import FileManager from '../utils/FileManager';
 
 type Props = {
     navigation: Object,
@@ -42,16 +42,7 @@ export default class ItemList extends React.PureComponent<Props> {
             return;
         }
 
-        const sheetOptions = [
-            'Cancel',
-            'View file',
-            'Delete file',
-            'Share file'
-        ];
-        if (FileHelper.isEditable(item.path)) {
-            sheetOptions.push('Edit file');
-        }
-        sheetOptions.sort();
+        const sheetOptions = ['Cancel', ...FileManager.getActions(item)];
 
         ActionSheetIOS.showActionSheetWithOptions(
             {
@@ -60,36 +51,7 @@ export default class ItemList extends React.PureComponent<Props> {
             },
             (buttonIndex) => {
                 const sheetOptionText = sheetOptions[buttonIndex];
-                switch (sheetOptionText) {
-                    case 'Delete file':
-                        FileHelper.unlink(item.path);
-                        this._doLoadData();
-                        break;
-                    case 'Share file':
-                        break;
-                    case 'View file':
-                        navigation.dispatch(
-                            NavigationActions.navigate({
-                                routeName: 'ViewFile',
-                                key: `ViewFile_${item.path}`,
-                                params: {
-                                    item: item
-                                }
-                            })
-                        );
-                        break;
-                    case 'Edit file':
-                        navigation.dispatch(
-                            NavigationActions.navigate({
-                                routeName: 'EditFile',
-                                key: `EditFile_${item.path}`,
-                                params: {
-                                    item: item
-                                }
-                            })
-                        );
-                        break;
-                }
+                FileManager.handleAction(sheetOptionText, item, navigation);
             }
         );
     };

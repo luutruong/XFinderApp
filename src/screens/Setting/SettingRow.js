@@ -54,9 +54,10 @@ export default class SettingRow extends React.PureComponent<Props> {
             _value = item.dataFormat.replace('{value}', _value);
         }
 
+        const onPress = item.onPress ? item.onPress : () => {};
         return (
             <TouchableHighlight
-                onPress={() => item.onPress()}
+                onPress={() => onPress()}
                 underlayColor={'#f0f0f0'}
             >
                 <View style={styles.item}>

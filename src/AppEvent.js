@@ -3,7 +3,8 @@ import Container from "./Container";
 export const AppEventNames = Object.freeze({
     UserSettingsChanged: 'UserSettingsChanged',
     LayoutListGridChanged: 'LayoutListGridChanged',
-    SearchTextChanged: 'SearchTextChanged'
+    SearchTextChanged: 'SearchTextChanged',
+    FileSystemChanged: 'FileSystemChanged'
 });
 
 const prepareEventName = (name) => `events_${name}`;

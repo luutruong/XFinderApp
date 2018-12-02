@@ -1,6 +1,7 @@
 import RNFS from 'react-native-fs';
 import Container from '../Container';
 import { AsyncStorage } from 'react-native';
+import AppEvent, { AppEventNames } from '../AppEvent';
 
 const updateRecentFiles = (path: string, isDelete: boolean) => {
     let recentFiles = Container.getItem('recentFiles');
@@ -13,7 +14,7 @@ const updateRecentFiles = (path: string, isDelete: boolean) => {
             return p !== path;
         });
     } else {
-        recentFiles = recentFiles.filter(p => p !== path);
+        recentFiles = recentFiles.filter((p) => p !== path);
         recentFiles.push(path);
     }
 
@@ -67,23 +68,14 @@ export default class FileHelper {
         const parts = path.split('.');
         const extension = parts[parts.length - 1];
 
-        switch (extension) {
-            case 'txt':
-            case 'php':
-            case 'md':
-            case 'js':
-            case 'css':
-            case 'html':
-                return true;
-        }
-
-        return false;
+        return this.allowAddFileExts().indexOf(extension.toLowerCase()) !== -1;
     }
 
     static unlink(path: String): void {
         RNFS.unlink(path)
             .then(() => {
                 updateRecentFiles(path, true);
+                AppEvent.dispatch(AppEventNames.FileSystemChanged);
             })
             .catch(() => {});
     }
@@ -100,7 +92,14 @@ export default class FileHelper {
     }
 
     static makeDirectory(name: String, path: String): Promise {
-        return RNFS.mkdir(`${path}/${name}`);
+        return new Promise((resolve, reject) => {
+            RNFS.mkdir(`${path}/${name}`)
+                .then(() => {
+                    AppEvent.dispatch(AppEventNames.FileSystemChanged);
+                    resolve();
+                })
+                .catch(reject);
+        });
     }
 
     static createFile(name: String, path: String): Promise {
@@ -127,7 +126,26 @@ export default class FileHelper {
             }
 
             RNFS.writeFile(`${path}/${name}`, '')
-                .then(resolve)
+                .then(() => {
+                    AppEvent.dispatch(AppEventNames.FileSystemChanged);
+                    resolve();
+                })
+                .catch(reject);
+        });
+    }
+
+    static renameFile(path: String, toName: String): Promise {
+        return new Promise((resolve, reject) => {
+            const parts = path.split('/');
+            parts.pop();
+
+            const workOnDir = parts.join('/');
+
+            RNFS.copyFile(path, `${workOnDir}/${toName}`)
+                .then(() => {
+                    this.unlink(path);
+                    resolve();
+                })
                 .catch(reject);
         });
     }

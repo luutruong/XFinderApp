@@ -129,12 +129,14 @@ export default class FinderScreen extends BaseScreen<Props> {
 
     componentDidMount(): void {
         AppEvent.addListener(AppEventNames.LayoutListGridChanged, this._listGridDidChanged);
+        AppEvent.addListener(AppEventNames.FileSystemChanged, this._doLoadData);
 
         this._doLoadData();
     }
 
     componentWillUnmount(): void {
         AppEvent.removeListener(AppEventNames.LayoutListGridChanged, this._listGridDidChanged);
+        AppEvent.removeListener(AppEventNames.FileSystemChanged, this._doLoadData);
     }
 }
 

@@ -68,10 +68,12 @@ const sections = [
         title: 'App Info',
         data: [
             {
-                title: 'Review app'
+                title: 'Review app',
+                onPress: () => {}
             },
             {
-                title: 'Tell a friend'
+                title: 'Tell a friend',
+                onPress: () => {}
             },
             {
                 title: 'Free space',
@@ -101,7 +103,7 @@ const sections = [
                 title: 'Version',
                 valuePromise: () => {
                     return new Promise((resolve) => {
-                       resolve(DeviceInfo.getReadableVersion());
+                       resolve(DeviceInfo.getVersion());
                     });
                 }
             }
@@ -115,7 +117,7 @@ type Props = {
 export default class SettingScreen extends React.Component<Props> {
     _doRenderItem = ({item}) => <SettingRow item={item}/>;
 
-    _doRenderSectionHeader = (sectionData, sectionId) => {
+    _doRenderSectionHeader = (sectionData) => {
         return (
             <View style={styles.sectionHeader}>
                 <Text style={styles.sectionText}>{sectionData.section.title.toUpperCase()}</Text>
@@ -135,7 +137,6 @@ export default class SettingScreen extends React.Component<Props> {
                     keyExtractor={(item, index) => item + index}
                     renderSectionHeader={this._doRenderSectionHeader}
                     ItemSeparatorComponent={ItemSeparator}
-                    scrollEnabled={false}
                     {...sectionListProps}
                 />
             </View>

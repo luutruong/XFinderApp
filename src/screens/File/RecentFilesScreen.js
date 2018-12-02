@@ -3,6 +3,7 @@ import BaseScreen, {LoadingStates} from "../BaseScreen";
 import FileHelper from "../../utils/FileHelper";
 import ItemList from "../../components/ItemList";
 import RNFS from 'react-native-fs'
+import AppEvent, {AppEventNames} from "../../AppEvent";
 
 export default class RecentFilesScreen extends BaseScreen {
     _doLoadData = () => {
@@ -70,10 +71,12 @@ export default class RecentFilesScreen extends BaseScreen {
         const {navigation} = this.props;
 
         this._didFocus = navigation.addListener('didFocus', this._doLoadData);
+        AppEvent.addListener(AppEventNames.FileSystemChanged, this._doLoadData);
     }
 
     componentWillUnmount(): void {
         this._didFocus.remove();
+        AppEvent.removeListener(AppEventNames.FileSystemChanged, this._doLoadData);
     }
 }
 
